@@ -1,0 +1,23 @@
+{
+  "name": "@my-utils/link",
+  "version": "1.0.0",
+  "description": "this is a node shell",
+  "author": "winnerwly<winnerwly@gmail.com>",
+  "main": "index.js",
+  "bin": {
+    "link-jms-common": "./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/my-utils/link"
+  },
+  "homepage": "https://github.com/my-utils/link/",
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "inquirer": "^8.2.0"
+  }
+}
