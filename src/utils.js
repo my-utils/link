@@ -1,46 +1,24 @@
 const fs = require('fs')
+const path = require('path')
 
-// 写入缓存信息
-function writeCache(data) {
-  const res = fs.writeFileSync('cache.json', JSON.stringify(data, null, '  '), { encoding: 'utf-8' })
-  console.log('res :>> ', res);
+const configFilePath = path.join(__dirname, '../', 'config.json')
+// 写入配置信息
+function writeConfig(data) {
+  fs.writeFileSync(configFilePath, JSON.stringify(data, null, '  '), { encoding: 'utf-8' })
+  console.log('配置信息写入成功 :>> ');
 }
 
-// 读取缓存信息
-function readCache() {
+// 读取配置信息
+function readConfig() {
   try {
-    const list = fs.readFileSync('cache.json', { encoding: 'utf-8' })
+    const list = fs.readFileSync(configFilePath, { encoding: 'utf-8' })
     return JSON.parse(list)
   } catch (err) {
-    return []
+    return {}
   }
-}
-
-// 添加数据到缓存中
-function addCache(data) {
-  const list = readCache()
-  const item = list.find(i => i.name === data.name)
-  if (item) {
-    console.log(`${data.name} 这个名称已经被使用`)
-    return
-  }
-  list.push({ value: list.length + 1, ...data })
-  writeCache(list)
-}
-
-function removeCacheByName(name) {
-  if (!name) {
-    console.log('缺少必要的参数')
-    return
-  }
-  const list = readCache()
-  const newList = list.filter(i => i.name !== name)
-  writeCache(newList)
 }
 
 module.exports = {
-  writeCache,
-  readCache,
-  addCache,
-  removeCacheByName
+  writeConfig,
+  readConfig
 }
