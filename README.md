@@ -12,5 +12,4 @@ link-jms-common
 ```shell
 link-jms-common -v  # 查看当前版本号
 link-jms-common update # 跟新当前版本号工具
-link-jms-common config [url] # 配置git仓库地址
 ```
