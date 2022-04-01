@@ -1,4 +1,3 @@
-
 const exec = require('child_process').exec
 const inquirer = require('inquirer')
 const path = require('path')
@@ -22,11 +21,11 @@ function create(gitList) {
         message: '请选择需要应用的代码分支:',
         default: 'master',
         choices: [
-          { value: 'production', name: 'production' },
-          { value: 'hotfix', name: 'hotfix' },
-          { value: 'master', name: 'master' },
-          { value: 'test', name: 'test' },
-          { value: 'dev', name: 'dev' },
+          {value: 'production', name: 'production'},
+          {value: 'hotfix', name: 'hotfix'},
+          {value: 'master', name: 'master'},
+          {value: 'test', name: 'test'},
+          {value: 'dev', name: 'dev'},
         ]
       },
       {
@@ -35,25 +34,25 @@ function create(gitList) {
         message: `请确认是否将组件库应用到本地`,
         default: 0,
         choices: [
-          { value: true, name: '确认' },
-          { value: false, name: '取消' },
+          {value: true, name: '确认'},
+          {value: false, name: '取消'},
         ]
       }
     ])
     .then(answers => {
       const item = gitList.find(i => i.value === answers.gitUrl)
-      console.log('仓库地址 >> ', item.gitUrl)
-      console.log('需要应用的分支 :>> ', answers.branch);
+      console.log('仓库地址:', item.gitUrl)
+      console.log('需要应用的分支:', answers.branch);
       if (answers.bool) {
         clone(item.gitUrl, answers.branch)
       } else {
-        console.log('取消操作 :>> ')
+        console.log('操作已取消')
       }
     })
     .catch(error => {
-      console.log('error :>> ', error)
+      console.log('错误信息:', error)
     })
-
+  
   function clone(gitUrl, branch) {
     function clear(fn) {
       try {
@@ -61,18 +60,20 @@ function create(gitList) {
         console.log('清除完成', delinfo)
         fn()
       } catch (error) {
-        console.log('error', error)
+        console.log('错误信息:', error)
       }
     }
-
+    
     clear(function () {
       const shell = `git clone -b ${branch} ${gitUrl} src/jms-common`
-      console.log('克隆中 :>> ', shell)
+      console.log('克隆中:', shell)
       mySpinner.start()
       exec(shell, function (error) {
         mySpinner.stop()
         if (!error) {
-          console.log('克隆完成')
+          console.log('克隆成功')
+          del.sync(path.join(process.cwd(), 'src/jms-common/.git'))
+          console.log('自动清楚 jms-common中的 .git')
         } else {
           console.log('克隆失败', error)
         }
@@ -81,4 +82,4 @@ function create(gitList) {
   }
 }
 
-module.exports = { create }
+module.exports = {create}
