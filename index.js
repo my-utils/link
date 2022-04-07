@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-const {create} = require('./src/create')
-const {update} = require('./src/update')
-const {query} = require('./src/service')
+const { create } = require('./src/create')
+const { update } = require('./src/update')
+const { query } = require('./src/service')
 const package = require('./package.json')
 const ora = require('ora');
 
@@ -11,8 +11,7 @@ const type = process.argv[2]
 async function start() {
   try {
     mySpinner.start()
-    const {data} = await query()
-    console.log('data', data)
+    const { data } = await query()
     mySpinner.stop()
     if (!data && data.length === 0) {
       console.log('请配置远程数据')
