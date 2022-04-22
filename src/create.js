@@ -73,7 +73,7 @@ function create(gitList) {
         if (!error) {
           console.log('克隆成功')
           del.sync(path.join(process.cwd(), 'src/jms-common/.git'))
-          console.log('自动清楚 jms-common中的 .git')
+          console.log('自动清除 jms-common中的 .git')
         } else {
           console.log('克隆失败', error)
         }
